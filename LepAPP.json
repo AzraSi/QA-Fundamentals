@@ -1,0 +1,1160 @@
+{
+	"info": {
+		"_postman_id": "0fd22893-aa40-4cee-8556-6ee138110dde",
+		"name": "Kolekcija-Zadatak 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registracija - prazna conf pass",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.sirucic+147@gmail.com\",\n\"nickname\": \"cyber147\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija - prazna sifra",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.sirucic+147@gmail.com\",\n\"nickname\": \"cyber147\",\n\"password\": \"\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija - dva \"@@\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.sirucic+147@@gmail.com\",\n\"nickname\": \"cyber963\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login - wrong pass",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a2afe7b-5750-4134-b311-2d5b9615242f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var access_token = jsonData.access_token;",
+							"pm.globals.set(\"bearer token\", access_token);",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"azra.sirucic@gmail.com\",\n\"password\": \"dijamant##\",\n\"client_id\": \"fdd371ba5156b95e30f911af8cfc5c05bbefb54c563b0b1bacf839b1ee8f27d8\",\n\"client_secret\": \"af228c8e160749c71234ee8210e2ada6e124e7029cf35745980ab14970f93837\"\n\t\n}"
+				},
+				"url": {
+					"raw": "{{url}}/oauth/token?grant_type=password",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login - wrong email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a2afe7b-5750-4134-b311-2d5b9615242f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var access_token = jsonData.access_token;",
+							"pm.globals.set(\"bearer token\", access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"azra.sirucic87481641934619@gmail.com\",\n\"password\": \"dijamant#\",\n\"client_id\": \"fdd371ba5156b95e30f911af8cfc5c05bbefb54c563b0b1bacf839b1ee8f27d8\",\n\"client_secret\": \"af228c8e160749c71234ee8210e2ada6e124e7029cf35745980ab14970f93837\"\n\t\n}"
+				},
+				"url": {
+					"raw": "{{url}}/oauth/token?grant_type=password",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login - email blank",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a2afe7b-5750-4134-b311-2d5b9615242f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var access_token = jsonData.access_token;",
+							"pm.globals.set(\"bearer token\", access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"\",\n\"password\": \"dijamant#\",\n\"client_id\": \"fdd371ba5156b95e30f911af8cfc5c05bbefb54c563b0b1bacf839b1ee8f27d8\",\n\"client_secret\": \"af228c8e160749c71234ee8210e2ada6e124e7029cf35745980ab14970f93837\"\n\t\n}"
+				},
+				"url": {
+					"raw": "{{url}}/oauth/token?grant_type=password",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login - pass blank",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a2afe7b-5750-4134-b311-2d5b9615242f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var access_token = jsonData.access_token;",
+							"pm.globals.set(\"bearer token\", access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"azra.sirucic+147@gmail.com\",\n\"password\": \"\",\n\"client_id\": \"fdd371ba5156b95e30f911af8cfc5c05bbefb54c563b0b1bacf839b1ee8f27d8\",\n\"client_secret\": \"af228c8e160749c71234ee8210e2ada6e124e7029cf35745980ab14970f93837\"}"
+				},
+				"url": {
+					"raw": "{{url}}/oauth/token?grant_type=password",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login -email and pass blank",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a2afe7b-5750-4134-b311-2d5b9615242f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var access_token = jsonData.access_token;",
+							"pm.globals.set(\"bearer token\", access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"\",\n\"password\": \"\",\n\"client_id\": \"fdd371ba5156b95e30f911af8cfc5c05bbefb54c563b0b1bacf839b1ee8f27d8\",\n\"client_secret\": \"af228c8e160749c71234ee8210e2ada6e124e7029cf35745980ab14970f93837\"}"
+				},
+				"url": {
+					"raw": "{{url}}/oauth/token?grant_type=password",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija - space in email ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.siruc ic+147@gmail.com\",\n\"nickname\": \"cyber147\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija - \"#\" in email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.si#rucic+147@gmail.com\",\n\"nickname\": \"cyber147987\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija - nickname not uniqe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Looop tessst\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var nicknameTest = jsonData.errors.nickname; ",
+							"        var isOk = false;",
+							"        for(i = 0; i < nicknameTest.length; i++){",
+							"       ",
+							"            if(nicknameTest[i].indexOf('Someone already chose this nickname') >= 0){",
+							"                isOk = true;",
+							"",
+							"            }",
+							"        }",
+							"       ",
+							"        pm.expect(isOk).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.sirucic+147q@gmail.com\",\n\"nickname\": \"cyber147\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija - no special chars in pass",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Looop tessst\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var passTest = jsonData.errors.password; ",
+							"        var isOk = false;",
+							"        for(i = 0; i < passTest.length; i++){",
+							"       ",
+							"            if(passTest[i].indexOf('Password must contain at least one special character') >= 0){",
+							"                isOk = true;",
+							"",
+							"            }",
+							"        }",
+							"       ",
+							"        pm.expect(isOk).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.sirucic+147741@gmail.com\",\n\"nickname\": \"cyber147741\",\n\"password\": \"dijamantdij\",\n\"password_confirmation\": \"dijamantdij\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija \".\" kao prva u emailu",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \".azra.sirucic+147@gmail.com\",\n\"nickname\": \"cyber147\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija - \"1\" ispred emaila",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"1azra.sirucic+147@gmail.com\",\n\"nickname\": \"cyber369\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija - diff pass and conf",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							"",
+							"// uppercase letter for Paswword in requirements test faild",
+							"",
+							"pm.test(\"Looop tessst\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var password_confirmationTest = jsonData.errors.password_confirmation; ",
+							"        var isOk = false;",
+							"        for(i = 0; i < password_confirmationTest.length; i++){",
+							"       ",
+							"            if(password_confirmationTest[i].indexOf(\"Password confirmation doesn't match Password\") >= 0){",
+							"                isOk = true;",
+							"",
+							"            }",
+							"        }",
+							"       ",
+							"        pm.expect(isOk).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.sirucic+147147@gmail.com\",\n\"nickname\": \"cyber147147\",\n\"password\": \"dijamant##\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija- pass less then 6chars",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.sirucic+1477@gmail.com\",\n\"nickname\": \"cyber1477\",\n\"password\": \"dij\",\n\"password_confirmation\": \"dij\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija - blank email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							"// Please fill in all required fields.",
+							"//Error message not the same as one in the requirements",
+							"//Bug",
+							"",
+							"pm.test(\"Looop tessst\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var emailTest = jsonData.errors.email; ",
+							"        var isOk = false;",
+							"        for(i = 0; i < emailTest.length; i++){",
+							"       ",
+							"            if(emailTest[i].indexOf(\"Please fill in all required fields\") >= 0){",
+							"                isOk = true;",
+							"",
+							"            }",
+							"        }",
+							"       ",
+							"        pm.expect(isOk).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"\",\n\"nickname\": \"cyber14777\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija - with \"..\" in email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							"//test ne prolazi ",
+							"",
+							"pm.test(\"Looop tessst\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var emailTest = jsonData.errors.email; ",
+							"        var isOk = false;",
+							"        for(i = 0; i < emailTest.length; i++){",
+							"       ",
+							"            if(emailTest[i].indexOf(\"Email format is not valid\") >= 0){",
+							"                isOk = true;",
+							"",
+							"            }",
+							"        }",
+							"       ",
+							"        pm.expect(isOk).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra..sirucic+147@gmail.com\",\n\"nickname\": \"cyber258\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija - veliko slovo u emailu",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							"",
+							"//Veliko i malo slovo isto registruje"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azrA.sirucic+147@gmail.com\",\n\"nickname\": \"cyber147258\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija - domena nije klika il gmail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.not.have.status(200);",
+							"});",
+							"",
+							"// Error bi trebalo da bude : \"This domain is not on the whitelist.\", a ne \"Email is not valid.\"",
+							"",
+							"pm.test(\"Looop tessst\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var emailTest = jsonData.errors.email; ",
+							"        var isOk = false;",
+							"        for(i = 0; i < emailTest.length; i++){",
+							"       ",
+							"            if(emailTest[i].indexOf('This domain is not on the whitelist.') >= 0){",
+							"                isOk = true;",
+							"",
+							"            }",
+							"        }",
+							"       ",
+							"        pm.expect(isOk).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Error is returned\", function() {",
+							"    pm.response.to.have.jsonBody(\"errors\")",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"email\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.sirucic+147@hotmail.com\",\n\"nickname\": \"cyber1477\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija- all parms true",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.sirucic+147@gmail.com\",\n\"nickname\": \"cyber147\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registracija- all parms true with name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.sirucic+147@gmail.com\",\n\"nickname\": \"cyber147\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

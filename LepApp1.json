@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "86530275-f7ae-48d3-b192-aa05bd1e25e0",
+		"name": "Kolekcija- Zadatak 1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registracija",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abd655c7-44e9-4289-a01d-82ca227449fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":\n{\"email\": \"azra.sirucic+147@gmail.com\",\n\"nickname\": \"cyber147\",\n\"password\": \"dijamant#\",\n\"password_confirmation\": \"dijamant#\"\n\n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/sign_up",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a2afe7b-5750-4134-b311-2d5b9615242f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var access_token = jsonData.access_token;",
+							"pm.globals.set(\"bearer token\", access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"azra.sirucic+147@gmail.com\",\n\"password\": \"dijamant#\",\n\"client_id\": \"fdd371ba5156b95e30f911af8cfc5c05bbefb54c563b0b1bacf839b1ee8f27d8\",\n\"client_secret\": \"af228c8e160749c71234ee8210e2ada6e124e7029cf35745980ab14970f93837\"}"
+				},
+				"url": {
+					"raw": "{{url}}/oauth/token?grant_type=password",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista svih registrovanih usera",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "572cdc81-7955-409e-9734-50c698c423fb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearer token}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v1/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Svi transferi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37ecb7bd-7d27-424c-86a2-718eb3961252",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check value of header Content-Type\", function () {",
+							" pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var id = jsonData.group_transaction.id;",
+							"pm.globals.set(\"iddd\", id);",
+							"pm.environment.set(\"iddd\", id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearer token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"transaction\": {\n\"receiver_id\":[14],\n\"amount\": 5, \n\"values\": [\"help\"],\n\"message\": \"Super ste!\" \n}}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/transactions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista svih transfera",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb0b5d37-d101-4e74-8e90-afaa976c40d5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check value of header Content-Type\", function () {",
+							" pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearer token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v1/transactions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Brisanje transfera",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e3d30c9b-c633-4b0c-b8a8-186e80c9e080",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearer token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v1/transactions/{{iddd}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transactions",
+						"{{iddd}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
